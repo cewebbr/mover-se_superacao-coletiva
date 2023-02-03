@@ -1,0 +1,34 @@
+{% load pwa %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        {% pwa_meta_data %}
+        {% include 'global/partials/head.html' %}
+        <title>
+            SuperAção Coletiva - {% block title %}{% endblock %}
+        </title>
+    </head>
+    <body>
+        <a href="#main-content" tabindex="0" class="skip-link p-3 fs-5 bg-primary rounded shadow text-decoration-none text-center text-light">
+            <i class="bi bi-chevron-double-down me-2"></i>Pular para o conteúdo principal
+        </a>
+
+        {% include 'global/partials/header.html' %}
+
+        <main id="main-content" class="my-container py-5">
+            {% include 'global/partials/messages.html' %}
+
+            <header class="bg-info border border-success rounded-sm mb-4">
+                <h2 class="d-flex gap-lg-3 flex-wrap flex-column flex-lg-row justify-content-between align-items-center text-uppercase h3 m-0 p-3">
+                    {% block content_title %}{% endblock %}
+                </h2>
+            </header>
+
+            {% block content %}{% endblock %}
+        </main>
+
+        {% pwa_meta_script %}
+        {% include 'global/partials/footer.html' %}
+        {% include 'global/partials/scripts.html' %}
+    </body>
+</html>

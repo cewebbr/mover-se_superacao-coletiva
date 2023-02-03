@@ -1,0 +1,25 @@
+{% extends 'global/base.html' %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Criar Projeto{% endblock %}
+
+{% block content_title %}
+    <div>
+        <i class="bi bi-clipboard text-primary me-2"></i>
+        Criar Projeto
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% crispy form %}
+        <button type="submit" class="btn btn-lg btn-primary mt-3 col-12">
+            <i class="bi bi-clipboard-plus me-1"></i>
+            Criar Projeto
+        </button>
+    </form>
+{% endblock %}

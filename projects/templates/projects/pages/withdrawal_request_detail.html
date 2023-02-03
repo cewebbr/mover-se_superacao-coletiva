@@ -1,0 +1,149 @@
+{% extends 'global/base.html' %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block title %}Solicitação de Saque{% endblock %}
+
+{% block content_title %}
+    <div>
+        <i class="bi bi-coin text-primary me-2"></i>
+        Detalhes da Solicitação de Saque
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+
+    <div class="d-flex gap-5 flex-wrap">
+        <section class="col">
+            {% if w_request.comments %}
+                <div class="card w-100 mb-3">
+                    <header class="card-header bg-danger text-light d-flex flex-wrap justify-content-between align-items-center">
+                        <h3 class="fs-4 d-flex col-12 col-lg-auto justify-content-center justify-content-lg-start">
+                            <i class="bi bi-exclamation-triangle-fill me-3"></i>
+                            Atenção 
+                        </h3>
+                    </header>
+                    <div class="card-body">
+                        <div class="fw-bold mb-2 d-flex flex-nowrap">
+                            <i class="bi bi-chat-right-quote me-2 text-danger"></i>
+                            A nossa equipe deixou um comentário: 
+                        </div>
+                        <hr>
+                        <p class="card-text text-justify">
+                            {{ w_request.comments|safe }}
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+
+            <ul class="list-group">
+                <li class="list-group-item d-flex gap-2 py-3">
+                    <strong class="col">
+                        <i class="bi bi-clipboard text-primary me-1"></i>
+                        Referente ao projeto:
+                    </strong>
+                    <span class="col">
+                        <a class="decrease-opacity-hover underline-hover text-decoration-none" href="{% url 'projects:project_detail' w_request.project.slug %}">
+                            {{ w_request.project.title|truncatechars:32 }}
+                        </a>
+                    </span>
+                </li>
+                <li class="list-group-item d-flex gap-2 py-3">
+                    {% include 'users/partials/user_link.html' with user_link_user=w_request.user user_link_label_wrapper_class='col' user_link_icon_class='text-primary' user_link_separator='Solicitado por: ' user_link_username_wrapper_class='col ms-1' user_link_username_class='link-primary' %}
+                </li>
+                <li class="list-group-item d-flex gap-2  py-3">
+                    <strong class="col">
+                        <i class="bi bi-calendar-event text-primary me-1"></i>
+                        Data/Hora da solicitação:
+                    </strong>
+                    <span class="col">
+                        {{ w_request.created }}
+                    </span>
+                </li>
+                <li class="list-group-item d-flex gap-2 py-3">
+                    <strong class="col">
+                        <i class="bi bi-calendar-event text-primary me-1"></i>
+                        Data/Hora da última atualização:
+                    </strong>
+                    <span class="col">
+                        {{ w_request.modified }}
+                    </span>
+                </li>
+                <li class="list-group-item d-flex gap-2 py-3">
+                    <strong class="col">
+                        <i class="bi bi-cash-coin text-primary me-1"></i>
+                        Valor:
+                    </strong>
+                    <span class="col">
+                        R$ {{ w_request.project.collected|floatformat:2 }}
+                    </span>
+                </li>
+                <li class="list-group-item d-flex align-items-center gap-2 py-3">
+                    <strong class="col">
+                        {% if w_request.paid %}
+                            <i class="bi bi-check-circle-fill text-primary me-1" data-bs-toggle="tooltip" data-bs-placement="right" title="Transferência Realizada."></i>
+                        {% else %}
+                            <i class="bi bi-check-circle me-1" data-bs-toggle="tooltip" data-bs-placement="right" title="Transferência Pendente"></i>
+                        {% endif %}
+                        Status:
+                    </strong>
+                    <span class="col d-flex flex-wrap gap-2 justify-content-between align-items-center">
+                        {% if w_request.paid %}
+                            Pagamento Concluído
+                            <a class="btn btn-sm btn-primary" href="{{ w_request.payment_proof.url }}" target="_blank" rel="noopener noreferrer">
+                                <i class="bi bi-download me-1"></i>
+                                Baixar Comprovante
+                            </a>
+                        {% else %}
+                            Pendente
+                        {% endif %}
+                    </span>
+                </li>
+                <li class="list-group-item d-flex flex-wrap gap-1 py-3">
+                    <div class="col-12 d-flex justify-content-start align-items-center">
+                        <strong class="col">
+                            <i class="bi bi-cash-coin text-primary me-1"></i>
+                            Informações do Beneficiário:
+                        </strong>
+                        {% if w_request.user == user %}
+                            <div class="col">
+                                <a href="{% url 'projects:withdrawal_request_update' w_request.id %}" class="btn btn-sm btn-warning text-light px-3">
+                                    <i class="bi bi-pencil-square me-1"></i>
+                                    Editar
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <hr class="col-12">
+                    <span class="col-12 px-3">
+                        {{ w_request.beneficiary_information|safe }}
+                    </span>
+                </li>
+            </ul>
+        </section>
+
+        <div class="border-end align-self-stretch d-none d-lg-inline"></div>
+
+        {% if reply_form %}
+            <section class="col-12 col-lg-5">
+                <header>
+                    <h3>
+                        Atualizar Status
+                    </h3>
+                </header>
+
+                <hr class="my-3">
+
+                <form action="{% url 'projects:withdrawal_request_reply' w_request.id %}" method="post" enctype="multipart/form-data">
+                    {% crispy reply_form %}
+
+                    <button type="submit" class="btn btn-lg btn-primary mt-3 col-12">
+                        <i class="bi bi-pencil-square me-1"></i>
+                        Salvar
+                    </button>
+                </form>
+            </section>
+        {% endif %}
+    </div>
+{% endblock %}

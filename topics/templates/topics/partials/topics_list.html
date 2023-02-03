@@ -1,0 +1,14 @@
+{% if topics %}
+    <div class="d-grid gap-4">
+        <ul class="list-group d-grid gap-4">
+            {% for topic in topics %}
+                <li class="list-group-item border-0 p-0">
+                    {% include 'topics/partials/topic_preview.html' %}
+                </li>
+            {% endfor %}
+        </ul>
+        {% include 'global/partials/pagination.html' %}
+    </div>
+{% else %}
+    <p>Nenhum tópico cadastrado.</p>
+{% endif %}

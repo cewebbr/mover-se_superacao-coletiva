@@ -1,0 +1,14 @@
+{% if w_requests %}
+    <div class="d-grid gap-4">
+        <ul class="list-group d-grid gap-4">
+            {% for w_request in w_requests %}
+                <li class="list-group-item border-0 p-0">
+                    {% include 'projects/partials/withdrawal_request_preview.html' %}
+                </li>
+            {% endfor %}
+        </ul>
+        {% include 'global/partials/pagination.html' %}
+    </div>
+{% else %}
+    <p>Nenhuma solicitação de saque.</p>
+{% endif %}

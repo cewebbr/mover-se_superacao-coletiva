@@ -4,122 +4,162 @@
     <img src="https://ceweb.br/media/imgs/Moverse_na_Web_banner-site.jpg" alt="Vamos transformar Brumadinho. Projeto Mover-se na WEB!" width="450" height="auto">
 </h1>
 
+[![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
+<h1 align="center">
+    Plataforma Tecnológica de Financiamento Coletivo de Projetos Inovadores das Mulheres de Brumadinho
+    <br>
+    SuperAÇÃO Coletiva
+</h1>
 
-<h1 align="center"> Nome do Projeto </h1>
-
-O projeto [XPTO] faz parte da chamada pública [CGI.br/NIC.br/Ceweb.br nº 01/2019
+O projeto Plataforma Tecnológica de Financiamento Coletivo de Projetos Inovadores das Mulheres de Brumadinho SuperAÇÃO Coletiva faz parte da chamada pública [CGI.br/NIC.br/Ceweb.br nº 01/2019
 Mover-Se na Web – Articulação Pró-Brumadinho](https://ceweb.br/projetos/chamada.html)
-
-<p>Abaixo, liste a licença/s para o projeto. Lembre-se que todas as soluções devem possuir uma licença de código aberto, assim como todos os produtos produzidos com o aporte oferecido pelo Ceweb.br | NIC.br | CGI.br. </p>
-
-
-# Escolhendo a licença para o projeto 
-
-Uma vez definida, exclua essa seção, deixando apenas a indicação do "badge" da licença e o arquivo `LICENSE` dentro do repositório.
-
-Saiba mais sobre licenças de software:
-- [Como escolher uma licença para seu projeto
-](https://www.alura.com.br/artigos/como-escolher-uma-licenca-para-seu-projeto)
-- [Choose an open source license](https://choosealicense.com/)
-- [Como escolher uma licença para sua própria obra](https://www.gnu.org/licenses/license-recommendations.pt-br.html)
-
-Exemplo - MIT License
-
-[![Software License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/mas-cli/mas/blob/main/LICENSE)
-
-Os badges podem ser criados ou retirados do [License Shields](https://shields.io/category/license)
-
-<br/>
 
 #  Descrição da solução
 
-Aqui você deve adicionar uma descrição do projeto. Texto corrido, não maior que ~600 caracteres e/ou ~100 palavras.
+<div align="center">
 
-### Funcionalidades ativas
+![Logo projeto](github_media/brand.png)
 
-- [x] Cadastro de criação de usuário
-- [x] Cadastro de Denúncia
-- [x] Cadastro de uma fonte
+</div>
+<br>
 
-### Funcionalidades em desenvolvimento
-- [x] Moderação de comentários
-- [x] Moderação de ativos
 
-### Papeis e suas descrições
+O projeto SuperAÇÃO Coletiva consiste em uma plataforma de financiamento coletivo com recursos sociais colaborativos, que tem o objetivo de promover o financiamento coletivo de projetos das mulheres de Brumadinho.
 
--  Usuário: Uma breve descrição sobre os papeis do usuário na operação do sistema.
--  Moderador: Uma breve descrição sobre os papeis do Moderador na operação do sistema.
--  Administrador: Uma breve descrição sobre os papeis do Administrador na operação do sistema.
+Neste repositório você tem acesso ao código completo do MVP (Minimum Viable Product - Produto Mínimo Viável) da plataforma, com as principais funcionalidades de um sistema de financiamento coletivo com recursos de discussão social e API de pagamentos implementadas.
+
+<a target="_blank" href="github_media/tutorial_de_uso.pdf">📖 Manual de uso do MVP</a>
+
+<br>
+
+## Motivação
+
+Coletivos de mulheres têm se organizado para se apoiarem e desenvolverem projetos para ajudar Brumadinho. Devido à complexidade inerente ao planejamento e gestão de projetos, muitas ideias boas não atingem todo o seu potencial.
+
+Por falta de conhecimento de como executar, buscar recursos e de comunicação organizada, muitas ideias interessantes não são sequer avaliadas e se perdem oportunidades valiosas.Mesmo com ótimas ideias, podem faltar também condições concretas de execução de projetos como apoio financeiro, gestão e logística.
+
+SuperAÇÃO Coletiva é um protótipo de plataforma digital que tem por finalidade cadastrar projetos inovadores das mulheres de Brumadinho, visando buscar propostas de financiamento coletivo e suporte para o planejamento e a execução de tais projetos.
+
+<div align="center">
+
+![Tela da plataforma](github_media/tela.png)
+
+</div>
+
+
+### Funcionalidades desenvolvidas
+
+- [x] Cadastro de Usuário
+- [x] Criação de projeto
+- [x] Fórum de discussão de projeto (espaço de interação social)
+- [x] Contribuir com projeto (doação)
+- [x] Gestão dos projetos
+- [x] Responsividade / PWA
+- [x] Recursos de acessibilidade
+- [x] API de pagamento integrada (via sandbox)
+
 
 #  Instalação
 
 ### Tecnologias utilizadas
 
-Liste aqui as tecnologias utilizadas no projeto como o modelo abaixo.
+*   [Django](https://www.djangoproject.com/)
+*   [PWA](https://developers.google.com/web/progressive-web-apps)
+*   [Bootstrap](https://getbootstrap.com/)
+*   [API Mercado Pago | Developers - Checkout Pro](https://www.mercadopago.com.br/developers/pt/docs/checkout-pro/landing)
+*   [AWS S3](https://aws.amazon.com/s3/)
 
-- [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
+### Pré-requisitos
 
-
-## Executando a aplicação
-
-### Pré-requisitos (Software e/ou Hardware)
-
-Liste aqui todos os pré-requisitos no modelo abaixo.
-
-- [Git](https://git-scm.com)
-- [Node.js](https://nodejs.org/en/). 
-
+*   [Python](https://www.python.org/) (recomendado versão 3.10)
+*   [Git](https://git-scm.com/)
+*   É necessário uma conta no [Mercado Pago | Developers](https://www.mercadopago.com.br/developers/pt) para a utilização do API Mercado Pago | Developers - Checkout Pro nos pagamentos.
+*   É necessário também de conta no [AWS S3](https://aws.amazon.com/s3/), caso deseje utilizá-lo para armazenar os arquivos de mídia.
 
 ### 1. No terminal
 
-```bash
-# Clone este repositório
-$ git clone https://github.com/cewebbr/template_mover-se
+```
+# Clone o repositório
+$ git clone https://github.com/AiltonGabriel/superacao-coletiva
 
-# Acesse a pasta do projeto no terminal
-$ cd template_mover-se
-
-# Crie um arquivo `.env` na raiz do projeto
-
-$ cp .env-exemple .env
+# Acesse a pasta do projeto
+$ cd superacao-coletiva
 
 # Instale as dependências
 $ pip install -r requirements.txt
 
+# Crie o banco de dados
+$ python manage.py makemigrations 
+$ python manage.py migrate
+
+# Crie o usuário administrador
+$ python manage.py createsuperuser
+
+# Colete os arquivos estáticos
+$ python manage.py collectstatic
 ```
 
-###  2. Configuração das variáveis de ambientes
+### 2. Configuração das variáveis de ambientes
 
-Abra o arquivo `.env` na raiz do projeto e configure as variáveis de ambiente
+Abra o arquivo arquivo [.env](superacao_coletiva/.env), localizado em superacao_coletiva/.env, e configure as variáveis de ambiente.
+
+**Observação:** A variável de ambiente USE\_AWS\_S3 define se os arquivos de mídia serão salvos no AWS S3 ou localmente. Caso seja marcada como False eles serão salvos localmente e não há necessidade de preencher as outras variáveis relacionadas a credenciais do AWS S3.
+
+### 3. Executando a aplicação
+
+#### Utilizando o servidor de desenvolvimento do Django
+
+Execute a aplicação utilizando o servidor de desenvolvimento do Django como o seguinte comando:
 
 ```
-twitter_api_key=""
-twitter_api_secret=""
-secret=""
-DATABASE_URL=""
-```
-###  3. Executando a aplicação
-```bash
-# Execute a aplicação em modo de desenvolvimento
-$ python server.py
+# Para que a aplicação fique disponível em: http://localhost:8000
+$ python manage.py runserver
 
-# O servidor inciará na porta:3333 - acesse <http://localhost:3333>
+# Para executar a aplicação em uma porta específica:
+$ python manage.py runserver <PORTA>
+
+# Para que a aplicação fique disponível externamente:
+$ python manage.py runserver 0:<PORTA>
 ```
+
+**Observação:** Este servidor não é recomendado para produção. Veja mais informações na [documentação do Django](https://docs.djangoproject.com/en/3.2/ref/django-admin/#runserver). 
+
+
+#### Utilizando o Gunicorn (Recomendado):
+
+Execute em um sistema Linux utilizando [Gunicorn](https://gunicorn.org/)  com os comandos:
+
+```
+# Para desenvolvimento:
+$ gunicorn -c config/gunicorn/dev.py
+
+#Para produção:
+$ gunicorn -c config/gunicorn/prod.py
+
+# Aplicação ficará disponível na porta:8000.
+```
+
 
 </br>
 
 #### Solução de problemas
 
-Descreva aqui caso existam problemas conhecidos, como pacotes, conflitos entre versões e se possível, como resolver ou um artigo que auxilie na solução. Caso não existir, omitir a seção.
+*   Para que o status dos pagamentos seja atualizado é necessário configurar para que o webhook da API do Mercado Pago | Developers envie as atualizações para <SEU_DOMINIO>/projects/donation/webhook/. Caso não tenha um domínio ou esteja executando localmente, sugerimos o uso do [ngrok](https://ngrok.com/).
+    
+*   Lembre-se de que para utilizar o AWS S3 é necessário configurar as credenciais de acesso.
+    
+*   Por favor, verifique a documentação oficial das tecnologias utilizadas para mais informações sobre configuração, uso e problemas comuns.
+
 
 <br/>
 
 ### Equipe responsável pelo projeto 
 
-- Ana Maria         - UFRJ - Coordenadora - ana@email.com.br
-- João da Silva     - UFMG - Pessoa desenvolvedora - joao@email.com.br
-- Luciana de Souza  - UFPR - Pessoa desenvolvedora - luciana@email.com.br
+- [Cheilon Caldeira Camargo](https://github.com/anaelbr) - IF Sudeste MG, Campus Barbacena (Coordenador)
+- [Rafael José de Alencar Almeida](https://github.com/rafjaa) - IF Sudeste MG, Campus Barbacena (Orientador)
+- [Ailton Gabriel de Oliveira](https://github.com/AiltonGabriel)           - IF Sudeste MG, Campus Barbacena (Desenvolvedor)
+- [Vinicius Augusto da Silva Paulo](https://github.com/)      - IF Sudeste MG, Campus Barbacena (Desenvolvedor)
+- Luciano Polisseni Duque      - IF Sudeste MG, Campus Juiz de Fora (Consultor)
 
 </br>
 

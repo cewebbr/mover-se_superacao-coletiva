@@ -1,0 +1,16 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Doações do Projeto{% endblock %}
+
+{% block content_title %}
+    <div>
+        <i class="bi bi-clipboard-fill text-primary me-2"></i>
+        Doações do projeto - <a href="{% url 'projects:project_detail' project.slug %}">{{project.title}}</a>
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+    <section>
+        {% include 'projects/partials/donations_list.html' %}
+    </section>
+{% endblock %}

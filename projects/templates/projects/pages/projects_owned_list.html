@@ -1,0 +1,78 @@
+{% extends 'global/base.html' %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block title %}Meus Projetos{% endblock %}
+
+{% block content_title %}
+    <div>
+        <i class="bi bi-clipboard text-primary me-2"></i>
+        Meus Projetos
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+    <section id="active-projects" class="tab-pane active" alt="teste">
+        <header class="p-3 border text-center shadow-sm">
+            <h3 class="my-2 gap-1">
+                {% if not request.GET.search %}
+                    Resultados
+                    <span class="text-muted font-weight-light">({{ page_obj.paginator.count }})</span>
+                {% else %}
+                    Resultados para: <span class="fw-normal">"{{request.GET.search}}"</span>
+                    <span class="text-muted font-weight-light">({{ page_obj.paginator.count }})</span>
+                {% endif %}
+            </h3>
+            <hr>
+            <div class="collapse d-lg-block col-12 col-lg-auto" id="collapseOptions">
+                <div class="d-flex justify-content-between flex-wrap gap-4 py-3 py-lg-0">
+                    <form method="get" class="d-flex gap-3 flex-wrap fw-normal text-capitalize text-start">
+                        <span class="d-flex gap-2 align-items-baseline col-12 col-lg-auto">
+                            <label for="id_{{ filter.form.status.name }}" class="form-label col-4 col-lg-auto">
+                                {{ filter.form.status.label }}
+                            </label>
+                            {{ filter.form.status }}
+                        </span>
+                        <span class="d-flex gap-2 align-items-baseline col-12 col-lg-auto">
+                            <label for="id_{{ filter.form.is_published.name }}" class="form-label col-4 col-lg-auto">
+                                {{ filter.form.is_published.label }}
+                            </label>
+                            {{ filter.form.is_published }}
+                        </span>
+                        <span class="d-flex gap-2 align-items-baseline col-12 col-lg-auto">
+                            <label for="id_{{ filter.form.is_reproved.name }}" class="form-label col-4 col-lg-auto">
+                                {{ filter.form.is_reproved.label }}
+                            </label>
+                            {{ filter.form.is_reproved }}
+                        </span>
+                        {{ filter.form.search.as_hidden }}
+                        <button class="btn btn-primary col-12 col-lg-auto" type="submit">
+                            <i class="bi bi-funnel me-1"></i>
+                            Filtrar
+                        </button>
+                    </form>
+                    <hr class="col-12 d-lg-none">
+                    <form method="get" class="d-flex col-12 col-lg-auto">
+                        {{ filter.form.status.as_hidden  }}
+                        {{ filter.form.is_published.as_hidden }}
+                        {{ filter.form.is_reproved.as_hidden }}
+
+                        {{ filter.form.search }}
+                        <button class="btn btn-primary rounded-0 rounded-end" type="submit"><i class="bi bi-search"></i></button>
+                    </form>
+                </div>
+                <hr class="col-12 d-lg-none">
+            </div>
+            <div class="col-12 d-lg-none">
+                <button class="btn btn-primary col-12 collapse-chevron-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOptions" aria-expanded="false" aria-controls="collapseOptions">
+                    <i class="bi bi-chevron-compact-down"></i>
+                </button>
+            </div>
+        </header>
+        <div class="px-3 pt-4">
+            {% include 'projects/partials/projects_list.html' %}
+        </div>
+    </section>
+    
+{% endblock %}

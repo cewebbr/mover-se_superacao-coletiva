@@ -1,0 +1,59 @@
+<article class="card m-0 project-preview">
+    <div class="card-body px-3 m-0 d-flex flex-row justify-content-between flex-wrap  align-items-center">
+        <div class="col-auto">
+            <strong>
+                <i class="bi bi-clipboard text-primary me-1"></i>
+                Projeto: 
+            </strong>
+            <a href="{% url 'projects:project_detail' w_request.project.slug %}">
+                {{ w_request.project.title|truncatechars:16 }}
+            </a>
+        </div>
+
+        <hr class="col-12 d-lg-none">
+
+        <div class="col-auto">
+            <div class="d-flex  align-items-center">
+                {% include 'users/partials/user_link.html' with user_link_user=w_request.user user_link_icon_class='text-primary' user_link_separator='Usuário: ' user_link_username_class='text-reset' %}
+            </div>
+        </div>
+
+        <hr class="col-12 d-lg-none">
+
+        <div class="col-auto">
+            <strong>
+                <i class="bi bi-calendar-event text-primary me-1"></i>
+                Data:
+            </strong> 
+            {{ w_request.created|date:"SHORT_DATE_FORMAT" }}
+        </div>
+
+        <hr class="col-12 d-lg-none">
+
+        <div class="col-auto text-start text-lg-end">
+            <strong>
+                <i class="bi bi-cash-coin text-primary me-1"></i>
+                Valor:
+            </strong> 
+            R$ {{ w_request.project.collected|floatformat:2 }}
+        </div>
+
+        <div class="col-auto">
+            {% if w_request.paid %}
+                <i class="bi bi-check-circle-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="Transferência Realizada"></i>
+            {% else %}
+                <i class="bi bi-check-circle" data-bs-toggle="tooltip" data-bs-placement="right" title="Transferência Pendente"></i>
+            {% endif %}
+        </div>
+
+        <hr class="col-12 d-lg-none">
+        
+        <div  class="col-12 col-lg-auto text-center text-lg-end">
+            <a href="{% url 'projects:withdrawal_request_detail' w_request.id %}" class="text-decoration-none fw-bold">
+                Mais detelhes
+                <i class="bi bi-chevron-double-right text-primary"></i>
+            </a> 
+        </div>
+    </div> 
+</article>
+
