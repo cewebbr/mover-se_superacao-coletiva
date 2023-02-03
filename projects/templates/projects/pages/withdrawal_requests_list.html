@@ -1,0 +1,45 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Solicitações de Saque{% endblock %}
+
+{% block content_title %}
+    <div>
+        <i class="bi bi-coin text-primary me-2"></i>
+        Solicitações de Saque
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+    <section>
+        <header class="p-3 border text-center shadow-sm">
+            <h3 class="my-2 gap-1">
+                {% for value, label in filter.form.paid.field.choices %}
+                    {% if value|yesno:"True,False" == filter.form.paid.value or value == filter.form.paid.initial and not filter.form.paid.value %}
+                        {{ label }}
+                    {% endif %}
+                {% endfor %}
+                <span class="text-muted font-weight-light">({{ page_obj.paginator.count }})</span>
+            </h3>
+            <hr>
+            <div class="collapse d-lg-block col-12 col-lg-auto" id="collapseOptions">
+                <form class="auto-submit-filter-form d-flex justify-content-between flex-wrap gap-4 py-3 py-lg-0" method="get">
+                    <span class="d-flex gap-2 align-items-baseline col-12 col-lg-auto text-start">
+                        <label for="id_{{ filter.form.paid.name }}" class="form-label col-4 col-lg-auto">
+                            {{ filter.form.paid.label }}
+                        </label>
+                        {{ filter.form.paid }}
+                    </span>
+                </form>
+                <hr class="col-12 d-lg-none">
+            </div>
+            <div class="col-12 d-lg-none">
+                <button class="btn btn-primary col-12 collapse-chevron-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOptions" aria-expanded="false" aria-controls="collapseOptions">
+                    <i class="bi bi-chevron-compact-down"></i>
+                </button>
+            </div>
+        </header>
+        <div class="px-3 pt-4 w-100">
+            {% include 'projects/partials/withdrawal_requests_list.html' %}
+        </div>
+    </section>
+{% endblock %}

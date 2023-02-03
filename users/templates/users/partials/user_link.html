@@ -1,0 +1,54 @@
+{% comment %} 
+    Variable Required:
+        user_link_user: The user whose data will be displayed.
+
+    Variables for customization:
+        user_link_label_wrapper_class: Adicional classes for the div that wraps the profile picture (or icon) and the separator.
+        user_link_use_picture: Boolean value. True to use the profile picture if the user has one, and False to use just the icons.
+        user_link_icon_class: Aditional classes for the icon, which appears if the user doesn't have a profile picture.
+        user_link_separator: Content to be displayed between the profile picture (or icon) and the username.
+        user_link_separator_class: Aditional classes for the separator
+        user_link_username_wrapper_class:  Adicional classes for the div that wraps the username (the link).
+        user_link_username_class: Aditional classes for the username (the link).
+        user_link_as_form: True to display the link as a form instead of a tag <a>.
+        
+
+{% endcomment %}
+
+<div class="d-flex flex-fill align-items-center gap-1 p-0">
+    <div class="d-flex align-items-center {{ user_link_label_wrapper_class }}">
+        {% if user_link_user.profile_picture and not user_link_use_picture == False %}
+            <img class="small-user-pic align-self-stretch" src="{{ user_link_user.profile_picture.url }}"
+                alt="Imagem de perfil do usuário {{ user_link_user.username }}">
+        {% elif user_link_user %}
+            <i class="bi bi-person fs-5 {{user_link_icon_class}}"></i>
+        {% else %}
+            <i class="bi bi-person-x fs-5 {{user_link_icon_class}}"></i>
+        {% endif %}
+        {% if user_link_separator %}
+            <b class="ms-2 {{user_link_separator_class}}">{{ user_link_separator }}</b>
+        {% else %}
+            <span> </span>
+        {% endif %}
+    </div>
+
+    <div class="{{user_link_username_wrapper_class}}">
+        {% if user_link_user %}
+            {% if not user_link_as_form %}
+                <a href="{% url 'users:user_profile' user_link_user.id %}" 
+                    class="decrease-opacity-hover underline-hover text-decoration-none {{user_link_username_class}}"> 
+                    {{ user_link_user.username|truncatechars:16 }} 
+                </a>
+            {% else %}
+                <form action="{% url 'users:user_profile' user_link_user.id %}" method="get">
+                    <input type="submit" value="{{ user_link_user.username|truncatechars:16 }}" 
+                        class="decrease-opacity-hover underline-hover text-decoration-none border-0 {{user_link_username_class}}">
+                </form>
+            {% endif %}
+        {% else %}
+            <span class="text-muted">
+                Usuário Removido
+            </span>
+        {% endif %}
+    </div>
+</div>

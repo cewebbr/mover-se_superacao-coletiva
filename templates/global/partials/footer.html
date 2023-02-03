@@ -1,0 +1,70 @@
+{% load static %}
+
+<footer>
+    <section class="bg-primary py-5 text-light">
+        <div class="my-container d-flex align-items-start flex-wrap">
+            <section class="col-12 col-lg-6 text-center text-lg-start">
+                <header class="fw-bold fs-5 mb-4">
+                    Projeto SuperAção Coletiva
+                </header>
+                <div class="d-grid gap-4">
+                    <div class="fw-italic">
+                        Mover-Se na Web - Articulação Pró-Brumadinho
+                    </div>
+                    <div>
+                        Copyright © 2021-2022
+                    </div>
+                </div>
+            </section>
+
+            <section class="col-12 col-lg-3 text-center text-center text-lg-start mt-5 mt-lg-0">
+                <header class="fw-bold fs-5 mb-2">
+                    Plataforma
+                </header>
+                <div class="d-grid gap-1">
+                    <div>
+                        <a href="{% url 'home' %}" class="text-decoration-none text-light">Apresentação</a>
+                    </div>
+                    <div>
+                        <a href="{% url 'projects:projects_list' %}" class="text-decoration-none text-light">Projetos</a>
+                    </div>
+                    {% if not user.is_authenticated %}
+                        <div>
+                            <a href="{% url 'account_login' %}" class="text-decoration-none text-light">Login</a>
+                        </div>
+                        <div>
+                            <a href="{% url 'account_signup' %}" class="text-decoration-none text-light">Cadastro</a>
+                        </div>
+                    {% else %}
+                        <div>
+                            <a href="{% url 'account_logout' %}" class="text-decoration-none text-light">Sair</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </section>
+
+            <section class="col-12 col-lg-3 text-center text-lg-start mt-5 mt-lg-0">
+                <header class="fw-bold fs-5 mb-2">
+                    Projeto
+                </header>
+                <div class="d-grid gap-1">
+                    <div>
+                        <a href="#" class="text-decoration-none text-light">GitHub</a>
+                    </div>
+                    <div>
+                        <a href="#" class="text-decoration-none text-light">Contato</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+    <section class="my-container my-5">
+        <header class="text-center fs-3">
+            Apoio e desenvolvimento:
+        </header>
+        <div class="d-flex justify-content-around align-items-center my-5 flex-lg-row flex-column">
+            <img class="img-fluid col-12 col-lg-4" src="{% static 'global/img/if-sudeste-barbacena.png' %}" alt="Logo do Instituto Federal Sudeste de Minas Gerais - Campus Barbacena">
+            <img class="img-fluid col-12 col-lg-4 mt-5 mt-lg-0" src="{% static 'global/img/cwebbr-nicbr-cgibr.png' %}" alt="Logos do cweb.br, nic.br e cgi.br">
+        </div>
+    </section>
+</footer>

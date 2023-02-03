@@ -1,0 +1,16 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Histórico de Doações{% endblock %}
+
+{% block content_title %}
+    <div>
+        <i class="bi bi-clock-history text-primary me-2"></i>
+        Histórico de Doações
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+    <section>
+        {% include 'projects/partials/donations_list.html' %}
+    </section>
+{% endblock %}

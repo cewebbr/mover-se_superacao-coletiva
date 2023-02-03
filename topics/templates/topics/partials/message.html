@@ -1,0 +1,57 @@
+<article id="message-{{ message.id }}" class="d-flex flex-column flex-lg-row">
+    <div class="card border-0 bg-light p-0 shadow-sm col">
+        <div class="card-header d-flex justify-content-between gap-3 flex-wrap align-items-baseline
+        {% if user == message.user %}
+            bg-secondary text-white    
+        {% endif %}
+        ">
+
+            {% include 'users/partials/user_link.html' with user_link_user=message.user user_link_username_class='text-reset mb-2' %}
+
+            <span class="text-lowercase fs-small
+            {% if user != message.user %}
+                text-black-50
+            {% endif %}
+            ">
+                {{ message.created }}
+            </span>
+        </div>
+        <div class="card-body">
+            {{ message.content|linebreaks }}
+        </div>
+    </div>
+    <div class="d-flex flex-row flex-lg-column gap-3 justify-content-end justify-content-lg-start col-auto ps-0 ps-lg-3 pt-3 pt-lg-0">
+        <form action="{% url 'topics:vote_message' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="message" value="{{ message.id }}">
+            <input type="hidden" name="user" value="{{ user.id }}">
+            <input type="hidden" name="next" value="{{ request.path }}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}#message-{{ message.id }}">
+            <input type="hidden" name="value" value="True">
+            {% if message.vote.value == True %}
+                <button type="submit" class="border-0 bg-transparent text-muted" data-bs-toggle="tooltip" data-bs-placement="right" title='Remover "Gostei"'>
+                    <i class="bi bi-hand-thumbs-up-fill text-primary"></i>
+            {% else %}
+                <button type="submit" class="border-0 bg-transparent text-muted" data-bs-toggle="tooltip" data-bs-placement="right" title='Marcar como "Gostei"'>
+                    <i class="bi bi-hand-thumbs-up"></i>
+            {% endif %}
+            {{ message.upvotes }}
+            </button>
+        </form>
+        <form action="{% url 'topics:vote_message' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="message" value="{{ message.id }}">
+            <input type="hidden" name="user" value="{{ user.id }}">
+            <input type="hidden" name="next" value="{{ request.path }}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}#message-{{ message.id }}">
+            <input type="hidden" name="value" value="False">
+            {% if message.vote.value == False %}
+                <button type="submit" href="" class="border-0 bg-transparent text-muted" data-bs-toggle="tooltip" data-bs-placement="right" title='Remover "Não Gostei"'>
+                    <i class="bi bi-hand-thumbs-down-fill text-primary"></i>
+            {% else %}
+                <button type="submit" href="" class="border-0 bg-transparent text-muted" data-bs-toggle="tooltip" data-bs-placement="right" title='Marcar como "Não Gostei"'>
+                    <i class="bi bi-hand-thumbs-down"></i>
+            {% endif %}
+            {{ message.downvotes }}
+            </button>
+        </form>
+    </div>
+</article>

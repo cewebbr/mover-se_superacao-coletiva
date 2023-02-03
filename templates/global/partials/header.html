@@ -1,0 +1,133 @@
+{% load static %}
+
+<header class="bg-white shadow">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="my-container container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+                aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand my-1 mx-auto mx-lg-0" href="{% url 'projects:projects_list' %}">
+                <img src="{% static 'global/img/brand.png' %}" height="75" alt="SuperAção Coletiva">
+            </a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarToggler">
+                <ul class="navbar-nav text-center gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'projects:projects_list' %}">
+                            <i class="bi bi-clipboard-heart me-2"></i>
+                            Apoiar Projetos
+                        </a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'projects:project_create' %}">
+                                <i class="bi bi-clipboard-plus me-2"></i>
+                                Criar Projeto
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'projects:projects_owned' %}">
+                                <i class="bi bi-list-ul me-2"></i>
+                                Meus Projetos
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_staff %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userNavbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-lock me-2"></i>
+                                Gerenciar
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userNavbarDropdownMenuLink">
+                                {% if user.is_superuser  %}
+                                    <li class="dropdown-item">
+                                        <a class="nav-link" href="{% url 'admin:index' %}">
+                                            <i class="bi bi-person-gear me-2"></i>
+                                            Página de Administração
+                                        </a>
+                                    </li>
+
+                                    <li><hr class="dropdown-divider"></li>    
+                                {% endif %}
+
+                                <li class="dropdown-item">
+                                    <a class="nav-link" href="{% url 'projects:projects_review_list' %}">
+                                        <i class="bi bi-clipboard-pulse me-2"></i>
+                                        Revisar Projetos
+                                    </a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a class="nav-link" href="{% url 'projects:withdrawal_requests_staff_list' %}">
+                                        <i class="bi bi-coin me-2"></i>
+                                        Solicitações de Saque
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userNavbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {% if user.profile_picture %}
+                                    <img class="small-user-pic me-2" src="{{ user.profile_picture.url }}"
+                                        alt="Imagem de perfil do usuário {{ user.username }}">
+                                {% else %}
+                                    <i class="bi bi-person me-2"></i>
+                                {% endif %}
+                                {{user.username|truncatechars:16}}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userNavbarDropdownMenuLink">
+                                <li class="dropdown-item">
+                                    <a class="nav-link" href="{% url 'projects:donations_owned' %}">
+                                        <i class="bi bi-clock-history me-2"></i>
+                                        Histórico de Doações
+                                    </a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a class="nav-link" href="{% url 'projects:withdrawal_requests_list' %}">
+                                        <i class="bi bi-coin me-2"></i>
+                                        Solicitações de Saque
+                                    </a>
+                                </li>
+
+                                <li><hr class="dropdown-divider"></li>
+
+                                <li class="dropdown-item">
+                                    <a class="nav-link" href="{% url 'users:user_update' %}">
+                                        <i class="bi bi-gear me-2"></i>
+                                        Alterar Dados
+                                    </a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a class="nav-link" href="{% url 'users:user_profile' user.id %}">
+                                        <i class="bi bi-person-square me-2"></i>
+                                        Ver Perfil
+                                    </a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a class="nav-link" href="{% url 'account_logout' %}?next={{ request.path }}">
+                                        <i class="bi bi-box-arrow-right me-2 text-danger"></i>
+                                        Sair
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_login' %}">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>
+                                Entrar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_signup' %}">
+                                <i class="bi bi-person-plus-fill me-2"></i>
+                                Cadastro
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

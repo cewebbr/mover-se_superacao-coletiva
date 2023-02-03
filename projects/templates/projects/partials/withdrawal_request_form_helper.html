@@ -1,0 +1,36 @@
+<ul class="d-grid gap-3">
+    <li>
+        Insira as informações no seguinte formato: "<b>Campo: Valor</b>"
+    </li>
+    <li>
+        Campos necessários:
+        <ul class="list-group py-3">
+            <li class="list-group-item">
+                Para receber via transferência bancária:
+                <ul class="my-2">
+                    <li>Nome Completo</li>
+                    <li>CPF ou CNPJ</li>
+                    <li>Banco (Código)</li>
+                    <li>Agência (Atenção: não coloque o dígito aqui)</li>
+                    <li>Conta e dígito</li>
+                    <li>Tipo de conta</li>
+                </ul>
+            </li>
+            <li class="list-group-item">
+                Para receber via PIX:
+                <ul class="my-2">
+                    <li>Nome Completo</li>
+                    <li>Sua Chave PIX</li>
+                </ul>
+            </li>
+        </ul>
+    </li>  
+    <li class="text-danger text-justify">
+        <strong>Atenção: </strong>
+        <span class="text-body">
+            Verifique suas informações de contato informadas <a href="{% url 'users:user_update' %}#contact" target="_blank" rel="noopener noreferrer">aqui</a>. 
+            Pois caso ocorra algum problema com a transferência, 
+            nossa equipe entrará em contato através delas ou do e-mail cadastrado.
+        </span>
+    </li>
+</ul>

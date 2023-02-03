@@ -1,0 +1,11 @@
+{% load static %}
+{% if project.image %}
+    src="{{ project.image.url }}"
+{% else %}
+    src="default-project-img.jpg"
+{% endif %}
+{% if project.image_description %}
+    alt="{{ project.image_description }}" title="{{ project.image_description }}"
+{% else %}
+    alt='Imagem do projeto "{{ project.title }}"' title='Imagem do projeto "{{ project.title }}"'
+{% endif %}

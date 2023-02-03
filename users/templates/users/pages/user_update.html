@@ -1,0 +1,43 @@
+{% extends 'global/base.html' %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Alterar Dados do Usuário{% endblock %}
+
+{% block content_title %}
+    <div>
+        <i class="bi bi-person-square text-primary me-2"></i>
+        Alterar Dados do Usuário
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+    <div class="mb-4">
+        <a href="{% url 'account_change_password' %}">
+            <button class="btn btn-outline-primary col-12">
+                <i class="bi bi-key"></i>
+                Alterar Senha
+            </button>
+        </a>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% crispy form%}
+        <button type="submit" class="btn btn-lg btn-primary mt-3 col-12">
+            <i class="bi bi-pencil-square me-1"></i>
+            Salvar Alterações
+        </button>
+    </form>
+
+    <script src="{% static 'users/js/countries.js' %}"></script>
+    <script language="javascript">
+        populateCountries("id_country", "id_state");
+        country = document.getElementById("id_country");
+        country.value = "{{form.country.value}}";
+        country.onchange();
+        document.getElementById("id_state").value = "{{form.state.value}}";
+    </script>
+{% endblock %}

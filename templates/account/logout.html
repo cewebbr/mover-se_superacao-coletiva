@@ -1,0 +1,20 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Sair{% endblock %}
+
+{% block content_title %}Sair{% endblock content_title %}
+
+{% block content %}
+    <h2 class="h2 my-5">Você tem certeza que deseja sair?</h2>
+
+    <div class="d-flex justify-content-between px-0">
+        <a href="{{ request.GET.next }}" class="text-decoration-none col-6 p-0 pe-1">
+            <button type="submit" class="btn btn-outline-primary col-12">Cancelar</button>
+        </a>
+
+        <form class="col-6 p-0 ps-1" method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            <button class="btn btn-danger col-12" type="submit">Sair</button>
+        </form>
+    </div>
+{% endblock %}

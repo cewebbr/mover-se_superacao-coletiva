@@ -1,0 +1,31 @@
+{% extends 'global/base.html' %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Solicitar Saque{% endblock %}
+
+{% block content_title %}
+    <div class="text-break text-wrap">
+        <i class="bi bi-clipboard-fill text-primary me-2"></i>
+        Solicitar Saque - <a href="{% url 'projects:project_detail' project.slug %}">{{project.title|truncatechars:32}}</a>
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+    <form method="post">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                {% crispy form %}
+            </div>
+            <div class="col-12 col-lg-6 order-first order-lg-last p-4">
+                {% include 'projects/partials/withdrawal_request_form_helper.html' %}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-lg btn-warning mt-3 col-12">
+            <i class="bi bi-coin me-1"></i>
+            Criar Solicitação
+        </button>
+    </form>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Detalhes da Doação{% endblock %}
+
+{% block content_title %}
+    <div>
+        <i class="bi bi-clipboard2-heart text-primary me-2"></i>
+        Detalhes da Doação
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+
+    {% if link_checkout %}
+        <div class="alert alert-success text-center" role="alert">
+            Estamos muito felizes em receber seu apoio! <br>
+            Caso não a tela de pagamento não tenha sido aberta, por favor clique 
+            <a id="link_checkout" href="{{link_checkout}}" class="alert-link" target="_blank" rel="noopener noreferrer">aqui</a> 
+            para realizar o pagamento.
+        </div>
+    {% endif %}
+
+    <ul class="list-group">
+        <li class="list-group-item d-flex gap-2 py-3">
+            <strong class="col">
+                <i class="bi bi-clipboard text-primary me-1"></i>
+                Doado para o projeto:
+            </strong>
+            <span class="col">
+                <a class="decrease-opacity-hover underline-hover text-decoration-none" href="{% url 'projects:project_detail' donation.project.slug %}">
+                    {{ donation.project.title|truncatechars:32 }}
+                </a>
+            </span>
+        </li>
+        <li class="list-group-item d-flex gap-2 py-3">
+            {% include 'users/partials/user_link.html' with user_link_user=donation.user user_link_label_wrapper_class='col' user_link_icon_class='text-primary' user_link_separator='Usuário: ' user_link_username_wrapper_class='col ms-1' user_link_username_class='link-primary' %}
+        </li>
+        <li class="list-group-item d-flex gap-2  py-3">
+            <strong class="col">
+                <i class="bi bi-calendar-event text-primary me-1"></i>
+                Data/Hora da doação:
+            </strong>
+            <span class="col">
+                {{ donation.created }}
+            </span>
+        </li>
+        <li class="list-group-item d-flex gap-2 py-3">
+            <strong class="col">
+                <i class="bi bi-calendar-event text-primary me-1"></i>
+                Data/Hora da última atualização:
+            </strong>
+            <span class="col">
+                {{ donation.modified }}
+            </span>
+        </li>
+        <li class="list-group-item d-flex gap-2 py-3">
+            <strong class="col">
+                <i class="bi bi-cash-coin text-primary me-1"></i>
+                Valor:
+            </strong>
+            <span class="col">
+                R$ {{ donation.amount|floatformat:2 }}
+            </span>
+        </li>
+        <li class="list-group-item d-flex align-items-center gap-2 py-3">
+            <strong class="col">
+                {% if donation.payment_infos.status == 'approved' %}
+                    <i class="bi bi-check-circle-fill me-1 text-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="Pagamento Aprovado"></i>
+                {% elif donation.payment_infos.status == 'rejected' %}
+                    <i class="bi bi-x-circle-fill me-1 text-danger" data-bs-toggle="tooltip" data-bs-placement="right" title="Pagamento Rejeitado"></i>
+                {% else %}
+                    <i class="bi bi-check-circle me-1" data-bs-toggle="tooltip" data-bs-placement="right" title="Pagamento Pendente"></i>
+                {% endif %}
+                Status do pagamento:
+            </strong>
+            <span class="col d-flex flex-wrap gap-2 justify-content-between align-items-center">
+                {% if donation.payment_infos.status == 'approved' %}
+                    Pagamento Aprovado
+                {% elif donation.payment_infos.status == 'rejected' %}
+                    Pagamento Rejeitado
+                {% else %}
+                    Pagamento Pendente
+                {% endif %}
+            </span>
+        </li>
+    </ul>
+
+    {% if link_checkout %}
+        <script defer>
+            document.getElementById('link_checkout').click();
+        </script>
+    {% endif %}
+
+{% endblock %}

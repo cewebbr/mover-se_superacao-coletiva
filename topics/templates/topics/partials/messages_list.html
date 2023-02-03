@@ -1,0 +1,14 @@
+{% if msgs %}
+    <div class="d-grid gap-4">
+        <ul class="list-group d-grid gap-4">
+            {% for message in msgs %}
+                <li class="list-group-item border-0 p-0">
+                    {% include 'topics/partials/message.html' %}
+                </li>
+            {% endfor %}
+        </ul>
+        {% include 'global/partials/pagination.html' %}
+    </div>
+{% else %}
+    <p>Nenhum resposta publicada. Seja o primeiro a responder este tópico!</p>
+{% endif %}

@@ -1,0 +1,33 @@
+{% extends 'global/base.html' %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Excluir Tópico{% endblock %}
+
+{% block content_title %}
+    <div>
+        <i class="bi bi-clipboard text-primary me-2"></i>
+        Excluir Projeto
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+    <div class="d-grid gap-4">
+        <h2 class="h2">Você tem certeza que deseja excluir o tópico abaixo?</h2>
+
+        {% include 'topics/partials/topic_preview.html' %}
+
+        <div class="d-flex justify-content-between px-0">
+            <a href="{% url 'projects:project_detail' topic.project.slug %}" class="text-decoration-none col-6 p-0 pe-1">
+                <button type="submit" class="btn btn-primary col-12">Cancelar</button>
+            </a>
+
+            <form action="" method="post" class="col-6 p-0 ps-1">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger col-12">Excluir</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

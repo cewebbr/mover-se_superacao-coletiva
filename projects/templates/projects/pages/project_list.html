@@ -1,0 +1,62 @@
+{% extends 'global/base.html' %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block title %}Projetos{% endblock %}
+
+{% block content_title %}
+    <div>
+        <i class="bi bi-clipboard-heart text-primary me-2"></i>
+        Apoiar Projetos
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+    <section id="active-projects" class="tab-pane active" alt="teste">
+        <header class="p-3 border text-center shadow-sm">
+            <h3 class="my-2 gap-1">
+                {% for value, label in filter.form.status.field.choices %}
+                    {% if value == filter.form.status.value or value == filter.form.status.initial and not filter.form.status.value %}
+                        {{ label }}
+                    {% endif %}
+                {% endfor %}
+                {% if not request.GET.search %}
+                    <span class="text-muted font-weight-light">({{ page_obj.paginator.count }})</span>
+                {% endif %}
+            </h3>
+            <hr>
+            <div class="collapse d-lg-block col-12 col-lg-auto" id="collapseOptions">
+                <form class="auto-submit-filter-form d-flex justify-content-between flex-wrap gap-4 py-3 py-lg-0" method="get">
+                    <span class="d-flex gap-2 align-items-baseline col-12 col-lg-auto text-start">
+                        <label for="id_{{ filter.form.status.name }}" class="form-label col-4 col-lg-auto">
+                            {{ filter.form.status.label }}
+                        </label>
+                        {{ filter.form.status }}
+                    </span>
+                    <div class="d-flex col-12 col-lg-auto">
+                        {{ filter.form.search }}
+                        <button class="btn btn-primary rounded-0 rounded-end" type="submit"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+                <hr class="col-12 d-lg-none">
+            </div>
+            <div class="col-12 d-lg-none">
+                <button class="btn btn-primary col-12 collapse-chevron-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOptions" aria-expanded="false" aria-controls="collapseOptions">
+                    <i class="bi bi-chevron-compact-down"></i>
+                </button>
+            </div>
+            {% if request.GET.search %}
+                <hr>
+                <h4>
+                    Resultados para: <span class="fw-normal">"{{request.GET.search}}"</span>
+                    <span class="text-muted font-weight-light">({{ page_obj.paginator.count }})</span>
+                </h4>
+            {% endif %}
+        </header>
+        <div class="px-3 pt-4 w-100">
+            {% include 'projects/partials/projects_list.html' %}
+        </div>
+    </section>
+    
+{% endblock %}

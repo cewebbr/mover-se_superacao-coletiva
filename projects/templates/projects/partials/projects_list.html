@@ -1,0 +1,15 @@
+{% if projects %}
+    <div class="d-grid gap-4">
+        {% include 'global/partials/pagination.html' %}
+        <ul class="list-group d-flex flex-wrap gap-4 overflow-hidden">
+            {% for project in projects %}
+                <li class="list-group-item border-0 p-0 col-12">
+                    {% include 'projects/partials/project_preview.html' %}
+                </li>
+            {% endfor %}
+        </ul>
+        {% include 'global/partials/pagination.html' %}
+    </div>
+{% else %}
+    <p>Nenhum projeto encontrado.</p>
+{% endif %}

@@ -1,0 +1,85 @@
+<article class="card bg-light p-0 project-preview">
+    <a href="{% url 'projects:project_detail' project.slug %}" class="text-decoration-none d-flex justify-content-start flex-column flex-lg-row">
+        <section class="col-12 col-lg-4 p-0 border-end">
+            <img class="project-img-preview" {% include 'projects/partials/project_img_attrs.html' %}>
+        </section>
+        <section class="col-12 col-lg-8 d-flex flex-column flex-fill">
+            <header class="d-flex gap-0 gap-lg-4 flex-wrap align-items-baseline w-100 mx-auto py-4 py-lg-2 px-4 text-dark">
+                <h3 class="flex-fill my-lg-2 my-0 text-center text-wrap text-break">
+                    {{ project.title|truncatechars:32 }}
+                </h3>
+                {% if not project.is_published  %}
+                    <hr class="w-100 d-lg-none">
+                    <div class="flex-fill d-flex justify-content-evenly justify-content-lg-end my-lg-2">
+                        <span class="fw-bold text-danger">
+                            <i class="bi bi-clipboard-minus"></i>
+                            Não publicado
+                        </span>
+                        {% if project.is_reproved %}
+                            <span class="fw-bold text-danger">
+                                <i class="bi bi-clipboard-x ms-3"></i>
+                                Reprovado
+                            </span>
+                        {% else %}
+                            <span class="fw-bold text-dark">
+                                <i class="bi bi-clipboard-pulse ms-3"></i>
+                                Em Análise
+                            </span>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    {% now "Y-m-d" as todays_date %}
+                    {% if todays_date > project.deadline|date:"Y-m-d" %}
+                        <hr class="w-100 d-lg-none">
+                        <div class="col-12 col-lg-auto d-flex justify-content-evenly justify-content-lg-end">
+                            <span class="fw-bold text-danger fw-bold text-danger">
+                                <i class="bi bi-clipboard2-check"></i>
+                                Encerrado
+                            </span>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </header>
+            <section class="card-body d-flex flex-column justify-content-center py-0 px-0">
+                <div class="bg-info border d-flex flex-fill flex-column flex-lg-row justify-content-around align-items-start align-items-lg-center px-3 py-3 py-lg-4 text-body">
+                    <div class="my-2 my-lg-0 d-flex align-items-center gap-2">
+                        {% include 'users/partials/user_link.html' with user_link_user=project.owner user_link_icon_class='text-dark' user_link_separator='Criado por: ' user_link_separator_class='text-dark' user_link_username_class='text-reset' user_link_as_form=True %}
+                    </div>
+                    <div class="my-2 my-lg-0">
+                        <strong class="text-dark">
+                            <i class="bi bi-cash me-2"></i>
+                            Objetivo:
+                        </strong>
+                        R$ {{ project.goal|floatformat:2 }}
+                    </div>
+                    <div class="my-2 my-lg-0">
+                        <strong class="text-dark">
+                            <i class="bi bi-cash-coin me-2"></i>
+                            Valor Arrecadado:
+                        </strong>
+                        R$ {{ project.collected|floatformat:2 }}
+                    </div>
+                </div>
+                <div class="p-3 preview-project-introduction text-body">
+                    <div class="fw-bold mb-2 d-flex flex-nowrap">
+                        <i class="bi bi-info-square me-2 text-primary"></i>
+                        Introdução: 
+                    </div>
+                    <p class="card-text text-justify text-wrap text-break">{{ project.introduction }}</p>
+                </div>
+            </section>
+            <section class="d-flex flex-wrap flex-fill justify-content-evenly justify-content-lg-between align-items-center m-0 px-4 py-3 py-lg-4 border-top text-muted">
+                <span class="order-last order-lg-first text-center">Data de Encerramento: {{ project.deadline }}</span>
+                
+                <hr class="w-100 d-lg-none">
+
+                <span class="order-first order-lg-last">
+                    <i class="bi bi-chat-right-dots me-1"></i>
+                    {{ project.topic_set.all|length }}
+                    tópico{% if project.topic_set.all|length != 1%}s{% endif %}
+                </span>
+                
+            </section>
+        </section>
+    </a>
+</article>

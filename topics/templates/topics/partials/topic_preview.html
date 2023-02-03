@@ -1,0 +1,53 @@
+{% load static %}
+
+<article class="card w-100">
+    <a href="{% url 'topics:topic_detail' topic.id %}" class="text-decoration-none">
+        <div class="card-header py-4 py-lg-2 d-flex flex-column flex-lg-row flex-wrap justify-content-between align-items-start align-items-lg-center bg-info">
+            <h5 class="card-title text-dark">
+                <i class="bi bi-chat-right-dots text-primary fs-5 me-1"></i>
+                {{topic.title}}
+                <small class="text-muted fw-light">
+                    {% if topic.message_set.all|length == 1%}
+                        ({{topic.message_set.all|length}} mensagem)
+                    {% else %}
+                        ({{topic.message_set.all|length}} mensagens)
+                    {% endif %}
+                </small>
+            </h5>
+            <hr class="col-12 d-lg-none">
+            <span class="d-flex flex-column flex-lg-row justify-content-end">
+                <div class="d-flex gap-2 align-items-center">
+                    {% include 'users/partials/user_link.html' with user_link_user=topic.user user_link_icon_class='text-primary' user_link_separator='Criado por: ' user_link_separator_class='text-primary' user_link_username_class='text-black' user_link_as_form=True %}
+                </div>
+                {% if user == topic.user or user == project.owner %}
+                    <form class="d-none d-lg-inline ms-4" action="{% url 'topics:topic_delete' topic.id %}" method="get">
+                        <button type="submit" class="btn btn-sm btn-danger"> 
+                            <i class="bi bi-x-lg"></i>
+                            Excluir
+                        </button>
+                    </form>
+                {% endif %}
+            </span>
+        </div>
+        <div class="card-body text-body">
+            <p class="card-text text-justify">
+                <span class="fw-bold">
+                    Decrição: 
+                </span>
+                <div class="text-break text-wrap">
+                    {{topic.description|linebreaks|truncatechars:256}}
+                </div>
+            </p>
+        </div>
+    </a>
+    <div class="card-footer d-lg-none p-0">
+        {% if user == topic.user and project %}
+            <a href="{% url 'topics:topic_delete' topic.id %}">
+                <button class="btn btn-sm btn-danger rounded-0 rounded-bottom w-100">
+                    <i class="bi bi-x-lg me-1"></i>
+                    Excluir
+                </button>
+            </a>
+        {% endif %}
+    </div>
+</article>

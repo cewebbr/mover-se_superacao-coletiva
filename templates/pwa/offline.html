@@ -1,0 +1,14 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Offline{% endblock %}
+
+{% block content_title %}Offline{% endblock content_title %}
+
+{% block content %}
+    <div class="d-flex flex-column gap3">
+        <h3 class="my-5 text-center">
+            Você está offline! Por favor, verifique sua conexão com a internet.
+        </h3>
+        <a href="{% url 'home' %}" class="btn btn-primary col-auto mx-auto">Ver Apresentação</a>
+    </div>
+{% endblock %}

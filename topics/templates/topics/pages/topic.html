@@ -1,0 +1,104 @@
+{% extends 'global/base.html' %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Tópico: {{topic.title}}{% endblock %}
+
+{% block content_title %}
+    <div>
+        <i class="bi bi-clipboard-fill text-primary me-2"></i>
+        Tópico do Projeto - 
+        <a href="{% url 'projects:project_detail' topic.project.slug %}">
+            {{ topic.project.title|truncatechars:32 }}
+        </a>
+    </div>
+{% endblock content_title %}
+
+{% block content %}
+
+    <div class="d-grid gap-4">
+
+        <section class="card border-secondary">
+            <header class="card-header bg-primary text-white text-center">
+                <h3>
+                    <i class="bi bi-chat-right-dots me-1"></i>
+                    {{ topic.title }}
+                </h3>
+            </header>
+            <div class="card-body">
+                <section>
+                    <h4 class="card-title font-weight-bold">
+                        <i class="bi bi-person-square me-2 text-primary fs-4"></i>
+                        Criado por:
+                        <span>
+                            {% if topic.user %}
+                                <a href="{% url 'users:user_profile' topic.user.id %}" class="user-profile-link underline-hover text-primary text-decoration-none">
+                                    {{ topic.user.username|truncatechars:16 }}
+                                </a>
+                            {% endif %}
+                        </span>
+                    </h4>
+                </section>
+                <hr>
+                <section>
+                    <h4 class="card-title font-weight-bold">
+                        <i class="bi bi-card-text me-2 text-primary fs-4"></i>
+                        Descrição:
+                    </h4>
+                    <p class="card-text text-justify">
+                        {{ topic.description|linebreaks }}
+                    </p>
+                </section>
+            </div>
+        </section>
+
+        <section id="message-list" class="d-grid gap-5">
+            <header class="p-3 border text-center shadow-sm">
+                <h3 class="my-2 gap-1">
+                    Respostas
+                    <span class="text-muted font-weight-light">({{ page_obj.paginator.count }})</span>
+                </h3>
+            </header>
+
+            <div>
+                <form class="d-flex flex-wrap" action="{% url 'topics:message_create' %}" method="post">
+                    {% crispy message_form %}
+
+                    <div class="col-12 col-lg-auto">
+                        <button class="btn btn-primary px-5 shadow-sm gap-2 w-100" type="submit">
+                            <i class="bi bi-send me-1"></i>
+                            Publicar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="px-3">
+                <form class="auto-submit-filter-form d-flex align-items-baseline justify-content-end gap-2 mb-4" action=".#message-list" method="get">
+                    <label for="id_{{ filter.form.order_by.name }}" class="form-label col-lg-auto">
+                        {{ filter.form.order_by.label }}
+                    </label>
+                    <div class="col-auto">
+                        {{ filter.form.order_by }}
+                    </div>
+
+                    <label class="btn btn-outline-primary" for="id_{{ filter.form.ascending.name }}">
+                        {% if filter.form.ascending.value is True %}
+                            <i class="bi bi-arrow-up"></i>
+                        {% else %}
+                            <i class="bi bi-arrow-down"></i>
+                        {% endif %}
+                    </label>
+                    {{ filter.form.ascending }}
+                </form>
+                {% with list_link="message-list" %}
+                    {% include 'topics/partials/messages_list.html' %}
+                {% endwith %}
+            </div>
+        </section>
+
+    </div>
+    
+{% endblock %}
