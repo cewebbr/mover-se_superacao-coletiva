@@ -7,7 +7,6 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView
 from django_filters.views import FilterView
-
 from projects.filters import WithdrawalRequestListFilter
 from projects.forms import (WithdrawalRequestCreateForm,
                             WithdrawalRequestReplyForm,
@@ -89,7 +88,7 @@ class WithdrawalRequestReplyView(UserPassesTestMixin, UpdateView):
     context_object_name = 'w_request'
 
     def test_func(self):
-        return self.get_object().project.owner == self.request.user
+        return self.request.user.is_staff
 
     def get_success_url(self) -> str:
         return reverse("projects:withdrawal_request_detail", kwargs={'pk': self.object.id})
